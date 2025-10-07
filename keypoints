@@ -1,3 +1,12 @@
 M5N2x42dZUGy3zlc
 mern_admin
 mongodb+srv://mern_admin:mern_admin@cluster0.cip1vzf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+bee34878e79387952278f86aaf6e5f4b  - jwt secret key 
+
+
+
+https://storyhub-fn70.onrender.com --> render live url --> localhost:5000 this is means but this is live
+
+
+update the frontend code now accordingly from http -> https
