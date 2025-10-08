@@ -34,6 +34,7 @@ const postSchema = mongoose.Schema({
         type: String,
         default: null,
     },
+    imagePublicId: { type: String },
     excerpt: {
         type: String,
     },

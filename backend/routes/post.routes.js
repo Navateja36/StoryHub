@@ -4,6 +4,9 @@ import Post from "../models/Post.model.js";
 import userModel from '../models/User.model.js';
 import verifyToken from '../middleware/auth.middleware.js'
 import upload from '../middleware/cloudinaryUpload.middleware.js'; // Multer Configuration
+import { v2 as cloudinary } from 'cloudinary'; // Import the SDK
+import { v2 as cloudinary } from 'cloudinary'; // Import the SDK
+
 
 const router=express.Router();
 
@@ -34,6 +37,8 @@ router.post('/create', verifyToken, (req, res, next) => {
         const authorId = req.userId;
         // const filePath = req.file ? '/uploads/' + req.file.filename : null; 
         const imageUrl = req.file ? req.file.path : null;
+        const imagePublicId = req.file ? req.file.filename : null; // Cloudinary saves the public_id in req.file.filename
+
 
         if(!title || !content){
             return res.status(400).send({message:"Title and content are required."});
@@ -46,6 +51,7 @@ router.post('/create', verifyToken, (req, res, next) => {
                 content,
                 tags: tags ? tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0) : [],
                 imageUrl: imageUrl, 
+                imagePublicId: imagePublicId,
                 excerpt: content.substring(0, 150) + (content.length > 150 ? '...' : ''),
             });
             
@@ -129,6 +135,11 @@ router.delete('/:postId',verifyToken,async (req,res)=>{
         if(post.author.toString()!==userId){
             return res.status(403).send({message:"your not author of this post"})
         }
+        if (post.imagePublicId) {
+            // Use the Cloudinary SDK to delete the asset by its public_id
+            await cloudinary.uploader.destroy(post.imagePublicId);
+            console.log(`Cloudinary image deleted successfully for ID: ${post.imagePublicId}`);
+        }
         await postModel.deleteOne({_id:postId});
         res.status(200).send({ message: "Post deleted successfully." });
     }
