@@ -15,11 +15,13 @@ const __dirname = path.dirname(__filename);
 const app=express();
 // import testroute from './routes/test.routes.js'
 
-app.use(cors({
-    origin: 'https://storyhub-frontend.vercel.app/', // Specify the frontend origin (or use '*' for testing)
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+// app.use(cors({
+//     origin: 'https://storyhub-frontend.vercel.app/', // Specify the frontend origin (or use '*' for testing)
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+// }));
+
+app.use(cors())
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log("MongoDB connected successfully!"))
