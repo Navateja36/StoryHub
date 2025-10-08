@@ -5,7 +5,6 @@ import userModel from '../models/User.model.js';
 import verifyToken from '../middleware/auth.middleware.js'
 import upload from '../middleware/cloudinaryUpload.middleware.js'; // Multer Configuration
 import { v2 as cloudinary } from 'cloudinary'; // Import the SDK
-import { v2 as cloudinary } from 'cloudinary'; // Import the SDK
 
 
 const router=express.Router();
