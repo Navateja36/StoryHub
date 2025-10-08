@@ -16,7 +16,7 @@ const app=express();
 // import testroute from './routes/test.routes.js'
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Specify the frontend origin (or use '*' for testing)
+    origin: 'https://storyhub-frontend.vercel.app/', // Specify the frontend origin (or use '*' for testing)
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
