@@ -3,7 +3,7 @@ import postModel from '../models/Post.model.js'
 import Post from "../models/Post.model.js";
 import userModel from '../models/User.model.js';
 import verifyToken from '../middleware/auth.middleware.js'
-import upload from '../middleware/multer.middleware.js'; // Multer Configuration
+import upload from '../middleware/cloudinaryUpload.middleware.js'; // Multer Configuration
 
 const router=express.Router();
 
@@ -32,7 +32,8 @@ router.post('/create', verifyToken, (req, res, next) => {
         // Multer populates req.body with plain strings from FormData
         const {title,content,tags}=req.body; 
         const authorId = req.userId;
-        const filePath = req.file ? '/uploads/' + req.file.filename : null; 
+        // const filePath = req.file ? '/uploads/' + req.file.filename : null; 
+        const imageUrl = req.file ? req.file.path : null;
 
         if(!title || !content){
             return res.status(400).send({message:"Title and content are required."});
@@ -44,7 +45,7 @@ router.post('/create', verifyToken, (req, res, next) => {
                 title,
                 content,
                 tags: tags ? tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0) : [],
-                imageUrl: filePath, 
+                imageUrl: imageUrl, 
                 excerpt: content.substring(0, 150) + (content.length > 150 ? '...' : ''),
             });
             
