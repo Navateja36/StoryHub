@@ -84,7 +84,7 @@ router.get('/feed',async (req,res)=>{
 // ------------------------------------------------------------------------
 // ROUTE 3: GET /api/posts/:postId (PUBLIC)
 // ------------------------------------------------------------------------
-router.get('/:postId',async (req,res)=>{
+router.get('/:postId',verifyToken,async (req,res)=>{
     try{
         const postId=req.params.postId;
         const post=await postModel.findById(postId).populate('author','name email');
